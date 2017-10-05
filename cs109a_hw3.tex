@@ -1,0 +1,1567 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{cs109a\_hw3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{CS 109A/STAT 121A/AC 209A/CSCI E-109A: Homework
+3}\label{cs-109astat-121aac-209acsci-e-109a-homework-3}
+
+\section{Multiple Linear Regression, Subset Selection, Cross
+Validation}\label{multiple-linear-regression-subset-selection-cross-validation}
+
+\textbf{Harvard University} \textbf{Fall 2017} \textbf{Instructors}:
+Pavlos Protopapas, Kevin Rader, Rahul Dave, Margo Levine
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{INSTRUCTIONS}\label{instructions}
+
+\begin{itemize}
+\tightlist
+\item
+  To submit your assignment follow the instructions given in canvas.
+\item
+  Restart the kernel and run the whole notebook again before you submit.
+\item
+  Do not include your name(s) in the notebook if you are submitting as a
+  group.
+\item
+  If you submit individually and you have worked with someone, please
+  include the name of your {[}one{]} partner below.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    Your partner's name (if you submit separately): Everett Sussman, Jan
+Geffert
+
+Enrollment Status (109A, 121A, 209A, or E109A): 109A
+
+    Import libraries:
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{import} \PY{n}{OLS}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Ridge}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Lasso}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{RidgeCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LassoCV}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}context}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{poster}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+/Applications/anaconda/lib/python3.6/site-packages/statsmodels/compat/pandas.py:56:
+FutureWarning: The pandas.core.datetools module is deprecated and will be removed in a
+future version. Please use the pandas.tseries module instead.
+  from pandas.core import datetools
+
+    \end{Verbatim}
+
+    \section{Forecasting Bike Sharing
+Usage}\label{forecasting-bike-sharing-usage}
+
+In this homework, we will focus on multiple linear regression and will
+explore techniques for subset selection. The specific task is to build a
+regression model for a bike share system that can predict the total
+number of bike rentals in a given day, based on attributes about the
+day. Such a demand forecasting model would be useful in planning the
+number of bikes that need to be available in the system on any given
+day, and also in monitoring traffic in the city. The data for this
+problem was collected from the Capital Bikeshare program in Washington
+D.C. over two years.
+
+The data set is provided in the files \texttt{Bikeshare\_train.csv} and
+\texttt{Bikeshare\_test.csv}, as separate training and test sets. Each
+row in these files contains 10 attributes describing a day and its
+weather: - season (1 = spring, 2 = summer, 3 = fall, 4 = winter) - month
+(1 through 12, with 1 denoting Jan) - holiday (1 = the day is a holiday,
+0 = otherwise) - day\_of\_week (0 through 6, with 0 denoting Sunday) -
+workingday (1 = the day is neither a holiday or weekend, 0 = otherwise)
+- weather - 1: Clear, Few clouds, Partly cloudy, Partly cloudy - 2: Mist
++ Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist - 3: Light Snow,
+Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered
+clouds - 4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog -
+temp (temperature in Celsius) - atemp (apparent temperature, or relative
+outdoor temperature, in Celsius) - humidity (relative humidity) -
+windspeed (wind speed)
+
+and the last column 'count' contains the response variable, i.e. total
+number of bike rentals on the day.
+
+    \subsection{Part (a): Data Exploration \&
+Preprocessing}\label{part-a-data-exploration-preprocessing}
+
+As a first step, identify important characteristics of the data using
+suitable visualizations when necessary. Some of the questions you may
+ask include (but are not limited to):
+
+\begin{itemize}
+\tightlist
+\item
+  How does the number of bike rentals vary between weekdays and
+  weekends?
+\item
+  How about bike rentals on holidays?
+\item
+  What effect does the season have on the bike rentals on a given day?
+\item
+  Is the number of bike rentals lower than average when there is rain or
+  snow?
+\item
+  How does temperature effect bike rentals?
+\item
+  Do any of the numeric attributes have a clear non-linear dependence
+  with number of the bike rentals?
+\end{itemize}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Create Dataframes}
+        \PY{n}{trainDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bikeshare\PYZus{}train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{testDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bikeshare\PYZus{}test.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{trainDf}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    Unnamed: 0  season  month  holiday  day\_of\_week  workingday  weather  temp  \textbackslash{}
+        0           0       2      5        0            2           1        2    24   
+        1           1       4     12        0            2           1        1    15   
+        2           2       2      6        0            4           1        1    26   
+        3           3       4     12        0            0           0        1     0   
+        4           4       3      9        0            3           1        3    23   
+        
+           atemp  humidity  windspeed  count  
+        0     26   76.5833   0.118167   6073  
+        1     19   73.3750   0.174129   6606  
+        2     28   56.9583   0.253733   7363  
+        3      4   58.6250   0.169779   2431  
+        4     23   91.7083   0.097021   1996  
+\end{Verbatim}
+            
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} trainDf summary statistics}
+        \PY{n}{trainDf}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} (331, 12)
+\end{Verbatim}
+            
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} testDf summary statistics}
+        \PY{n}{testDf}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} (400, 12)
+\end{Verbatim}
+            
+    \subsubsection{Importing the Data}\label{importing-the-data}
+
+We noticed that our data set appears to be very clean - all columns are
+filled with values, each data point is atomic, etc. We also noticed that
+our testing data table contains more data points than our training data
+table.
+
+    \subsubsection{Number of Rentals per
+Day}\label{number-of-rentals-per-day}
+
+The first question our group wanted to answer was what the overall
+distribution of our \(y\) variable, the number of bikes rented per day,
+looked like. Thus, we created the below histogram.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} General histogram of count data}
+        \PY{n}{meanBikesRented} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{trainDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{medianBikesRented} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{trainDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        
+        
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{trainDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Histogram of Number of Bikes Rented per Day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of Bikes Rented}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{ax}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{meanBikesRented}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean:}
+        \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{.}\PY{l+m+mi}{2}\PY{n}{f}\PY{p}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.format(meanBikesRented))}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{medianBikesRented}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Median:}
+        \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{.}\PY{l+m+mi}{2}\PY{n}{f}\PY{p}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.format(medianBikesRented))}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} <matplotlib.legend.Legend at 0x11f21e0f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The histogram above shows a fairly symmetrical distribution of values,
+as the mean and median are very similar. On an average day, 4598 bikes
+are rented. We also note that there tend to be small \emph{sub-peaks} in
+our histogram at around 1500 bikes rented and 7500 bikes rented. There
+are no nonsensical values, such as negative bikes rented in a day.
+
+    \subsubsection{Weekdays vs. Weekends}\label{weekdays-vs.-weekends}
+
+Next, we investigated whether bikes, on average, were more likely to be
+used during the weekend versus weekdays.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{dayGroup} \PY{o}{=} \PY{n}{trainDf}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{dayGroup}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average number of Bikes Shared By}
+         \PY{n}{Day} \PY{n}{of} \PY{n}{Week}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sun}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Tue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Thu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fri}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Bikes Shared}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} <matplotlib.text.Text at 0x122dc51d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Find mean for weekdays, mean for weekends}
+        \PY{n}{weekMean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{dayGroup}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{weekendMean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{[}\PY{n}{dayGroup}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{dayGroup}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean bikes rented during the week: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Mean bikes rented during the weekend:}
+        \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.format(weekMean, weekendMean))}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+Mean bikes rented during the week: 4634.760765349032, Mean bikes rented during the
+weekend: 4503.6314465408805
+
+    \end{Verbatim}
+
+    We find that, on average, slightly more bikes are rented during the week
+(4635 \textgreater{} 4504). This suggests the usage of rental bikes by
+commuters, as opposed to leisure.
+
+    \subsubsection{Holidays}\label{holidays}
+
+Next, we investigated whether the indicator of a day being a holiday
+impacted overal bike rentals.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Holiday Analysis}
+         \PY{n}{holidayGroup} \PY{o}{=} \PY{n}{trainDf}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{holiday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{holidayGroup}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Bike Rentals Vs. Holiday}
+         \PY{n}{Boolean}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Bike Rentals}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{regular day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{holiday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} ([<matplotlib.axis.XTick at 0x11f517358>,
+           <matplotlib.axis.XTick at 0x11f517b00>],
+          <a list of 2 Text xticklabel objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{hMeans} \PY{o}{=} \PY{n}{holidayGroup}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Bike Rentals during a non\PYZhy{}Holiday: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Mean Bike Rentals during a Holiday:}
+         \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{o}{.}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.format(hMeans[0], hMeans[1]))}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+Mean Bike Rentals during a non-Holiday: 4612.171875, Mean Bike Rentals during a
+Holiday: 4199.181818181818.
+
+    \end{Verbatim}
+
+    We find that, on average, more bikes are rented during a non-holiday.
+This further hints at the commuter-hypothesis.
+
+    \subsubsection{Seasonal effects}\label{seasonal-effects}
+
+Now, our group wanted to determine whether the season impacted the
+relative popularity of bike rentals throughout the week. For example, in
+the summer, we would imagine that more people would rent a bike during
+the weekend than in the winter time, when the only people biking would
+be those that relied on bikes to commute.
+
+To visualize this, in the below graph, we plotted 4 trend lines
+throughout the week detailing the normalized average bike rentals per
+day. To normalize each trend line, we divided the daily average by the
+seasonal average.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{seasonDayGroup} \PY{o}{=} \PY{n}{trainDf}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{seasonNames} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spring}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Summer}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fall}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Winter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{season} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{seasonDayGroup}\PY{p}{[}\PY{n}{season}\PY{p}{]}\PY{p}{)}
+             \PY{n}{normalizedRentals} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o}{/} \PY{n}{mean}\PY{p}{,} \PY{n}{seasonDayGroup}\PY{p}{[}\PY{n}{season}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{normalizedRentals}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{seasonNames}\PY{p}{[}\PY{n}{season}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normalized Average Bike Rentals Throughout the Week by Season}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sun}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Tue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Thu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fri}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normalized Average Bike Rental}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We find that there is considerably more variation in the spring time
+than in the other seasons. Also, in the spring, weekends are
+surprisingly unpopular in terms of average bike rentals compared to the
+weekdays. However, in contrast, in the summer, Fridays are very popular.
+Lastly, in the winter time, Saturday is the most popular day to rent a
+bike, relative to other days in the week. This was incredibly
+surprising, and throws a wrench into our initial hypothesis that most
+bike rentals were for commuting purposes only.
+
+    \subsubsection{Weather Effects}\label{weather-effects}
+
+Now, our group investigated whether the severity of weather impacted
+bike rentals in any given day.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{weatherGroup} \PY{o}{=} \PY{n}{trainDf}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{weatherGroup}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average Bike Rentals vs Weather}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Clear, Partly cloudy...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mist + Cloudy...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Light Snow,}
+         \PY{n}{Light} \PY{n}{Rain}\PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{], rotation=45)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average Bike Rentals}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <matplotlib.text.Text at 0x1210110b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the above graph, we see that, as expected, when the weather worsens,
+people rent fewer bikes.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Print out means:}
+         \PY{n}{weatherDiff} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{weather} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+             \PY{n}{weatherMean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{weatherGroup}\PY{p}{[}\PY{n}{weather}\PY{p}{]}\PY{p}{)}
+             \PY{n}{weatherDiff}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{weatherMean} \PY{o}{\PYZhy{}} \PY{n}{meanBikesRented}\PY{p}{)}
+             \PY{k}{if} \PY{n}{weatherDiff}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Weather }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ has a mean of: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, which is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ more than the annual}
+         \PY{n}{mean}\PY{o}{.}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.format(weather, weatherMean, np.abs(weatherDiff[\PYZhy{}1])))}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Weather }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ has a mean of: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, which is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ less than the annual}
+         \PY{n}{mean}\PY{o}{.}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.format(weather, weatherMean, np.abs(weatherDiff[\PYZhy{}1])))}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+Weather 1 has a mean of: 5001.476415094339, which is 403.02928518497356 more than the
+annual mean.
+Weather 2 has a mean of: 4077.1651376146788, which is 521.2819922946869 less than the
+annual mean.
+Weather 3 has a mean of: 1736.2, which is 2862.247129909366 less than the annual mean.
+
+    \end{Verbatim}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{weatherDiff}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Difference from Mean Bikes Rented Vs. Weather Category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Clear, Partly cloudy...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mist + Cloudy...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Light Snow,}
+         \PY{n}{Light} \PY{n}{Rain}\PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{], rotation=90)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Difference in Bikes Rented from mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.text.Text at 0x11fec8198>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The above visualization takes this notion one step further, by revealing
+how far fewer bikes are rented in bad weather than the total average of
+bikes rented.
+
+    \subsubsection{Temperature}\label{temperature}
+
+Here, our group investigated the impact of temperature on bike rentals.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{trainDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{trainDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bikes Rented Vs. Temperature [°C]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temperature [°C]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{} of Bikes Rented}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.text.Text at 0x12019d550>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There seems to be a generally positive correlation of \emph{number of
+bikes rented} and \emph{temperature}, which makes sense, given our prior
+findings. At temperatures of 25 degrees or more, however, higher
+temperatures are associated with a reduction in ridership, presumably
+because riding becomes more cumbersome (and sweaty).
+
+    \subsubsection{Checking for Non-linear
+Dependencies}\label{checking-for-non-linear-dependencies}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{initPredictors} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{holiday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{workingday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{atemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{humidity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{windspeed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{predictor} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{initPredictors}\PY{p}{)}\PY{p}{:}
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{trainDf}\PY{p}{[}\PY{n}{predictor}\PY{p}{]}\PY{p}{,} \PY{n}{trainDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of Bikes Rented Vs. }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{predictor}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{predictor}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of Bikes Rented}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_35_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We observe that \texttt{season}, \texttt{month}, \texttt{temp}, and
+\texttt{atemp} seem to have a non-linear relationship with
+\texttt{number\ of\ bikes\ rented}. The former is probably best
+described by a sinusoidal function due to the periodicity of seasons,
+whereas the latter two would fit a negative quadratic function.
+
+    We next require you to pre-process the categorical and numerical
+attributes in the data set:
+
+\begin{itemize}
+\item
+  Notice that this data set contains categorical attributes with two or
+  more categories. \textbf{Why can't they be directly used as
+  predictors?} Convert these categorical attributes into multiple binary
+  attributes using one-hot encoding: in the place of every categorical
+  attribute \(x_j\) that has categories \(1, \ldots, K_j\), introduce
+  \(K_j-1\) binary predictors \(x_{j1}, \ldots, x_{j,K_j-1}\) where
+  \(x_{jk}\) is 1 whenever \(x_j = k\) and 0 otherwise. ** Why is it
+  okay to not have a binary column for the \(K_j\)-th category? **
+\item
+  Since the attributes are in different scales, it is a good practice to
+  standardize the continuous predictors, i.e. to scale each continuous
+  predictor to have zero mean and a standard deviation of 1. This can be
+  done by applying the following transform to each continuous-valued
+  predictor \(j\): \(\hat{x}_{ij} = (x_{ij} - \bar{x}_j) / s_j\), where
+  \(\bar{x}_j\) and \(s_j\) are the sample mean and sample standard
+  deviation (SD) of predictor \(j\) in the training set. We emphasize
+  that the mean and SD values used for standardization must be estimated
+  using only the training set observations, while the transform is
+  applied to both the training and test sets. ** Why shouldn't we
+  include the test set observations in computing the mean and SD? **
+\item
+  Provide a table of the summary statistics of the new attributes
+  (`pd.describe()' function will help).
+\end{itemize}
+
+\emph{Hint:} You may use the \texttt{pd.get\_dummies} function to
+convert a categorical attribute in a data frame to one-hot encoding.
+This function creates \(K\) binary columns for an attribute with \(K\)
+categories. We suggest that you delete the last (or first) binary column
+generated by this function.
+
+\textbf{Note:} We shall use the term "attribute" to refer to a
+categorical column in the data set, and the term "predictor" to refer to
+the individual binary columns resulting out of one-hot encoding.
+
+    \subsubsection{Answers to Questions
+above}\label{answers-to-questions-above}
+
+\begin{itemize}
+\tightlist
+\item
+  We cannot use categorical variables directly as predictors since
+  non-integer values have no meaning.
+\item
+  The \(K_j\)-th category does not need to have a binary column as it is
+  implied as the baseline, i.e. the \(0\)-vector.
+\item
+  As a general principle, we do not want to train on the test data. This
+  way, we avoid fitting the training data which would lead to a less
+  general model.
+\end{itemize}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Create dummy variables}
+         \PY{n}{trainBinaryDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{trainDf}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{testBinaryDf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{testDf}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{trainBinaryDf}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}    Unnamed: 0  holiday  workingday  temp  atemp  humidity  windspeed  count  \textbackslash{}
+         0           0        0           1    24     26   76.5833   0.118167   6073   
+         1           1        0           1    15     19   73.3750   0.174129   6606   
+         2           2        0           1    26     28   56.9583   0.253733   7363   
+         3           3        0           0     0      4   58.6250   0.169779   2431   
+         4           4        0           1    23     23   91.7083   0.097021   1996   
+         
+            season\_1  season\_2    {\ldots}      day\_of\_week\_0  day\_of\_week\_1  day\_of\_week\_2  \textbackslash{}
+         0         0         1    {\ldots}                  0              0              1   
+         1         0         0    {\ldots}                  0              0              1   
+         2         0         1    {\ldots}                  0              0              0   
+         3         0         0    {\ldots}                  1              0              0   
+         4         0         0    {\ldots}                  0              0              0   
+         
+            day\_of\_week\_3  day\_of\_week\_4  day\_of\_week\_5  day\_of\_week\_6  weather\_1  \textbackslash{}
+         0              0              0              0              0          0   
+         1              0              0              0              0          1   
+         2              0              1              0              0          1   
+         3              0              0              0              0          1   
+         4              1              0              0              0          0   
+         
+            weather\_2  weather\_3  
+         0          1          0  
+         1          0          0  
+         2          0          0  
+         3          0          0  
+         4          0          1  
+         
+         [5 rows x 34 columns]
+\end{Verbatim}
+            
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Normalize predictors}
+         \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{atemp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{humidity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{windspeed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+             \PY{n}{colMean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{trainBinaryDf}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{p}{)}
+             \PY{n}{colSD} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{trainBinaryDf}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{p}{)}
+             \PY{n}{trainBinaryDf}\PY{p}{[}\PY{n}{column} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{colMean}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{colSD}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in}
+         \PY{n}{trainBinaryDf}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{p}{]}
+             \PY{n}{testBinaryDf}\PY{p}{[}\PY{n}{column} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{colMean}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{colSD}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in}
+         \PY{n}{testBinaryDf}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{p}{]}
+         \PY{n}{trainBinaryDf}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}    Unnamed: 0  holiday  workingday  temp  atemp  humidity  windspeed  count  \textbackslash{}
+         0           0        0           1    24     26   76.5833   0.118167   6073   
+         1           1        0           1    15     19   73.3750   0.174129   6606   
+         2           2        0           1    26     28   56.9583   0.253733   7363   
+         3           3        0           0     0      4   58.6250   0.169779   2431   
+         4           4        0           1    23     23   91.7083   0.097021   1996   
+         
+            season\_1  season\_2       {\ldots}        day\_of\_week\_4  day\_of\_week\_5  \textbackslash{}
+         0         0         1       {\ldots}                    0              0   
+         1         0         0       {\ldots}                    0              0   
+         2         0         1       {\ldots}                    1              0   
+         3         0         0       {\ldots}                    0              0   
+         4         0         0       {\ldots}                    0              0   
+         
+            day\_of\_week\_6  weather\_1  weather\_2  weather\_3  temp\_norm  atemp\_norm  \textbackslash{}
+         0              0          0          1          0   0.624743    0.651090   
+         1              0          1          0          0  -0.180583   -0.054841   
+         2              0          1          0          0   0.803704    0.852785   
+         3              0          1          0          0  -1.522794   -1.567551   
+         4              0          0          0          1   0.535262    0.348548   
+         
+            humidity\_norm  windspeed\_norm  
+         0       0.922058       -0.930164  
+         1       0.697907       -0.213825  
+         2      -0.449062        0.805143  
+         3      -0.332616       -0.269507  
+         4       1.978781       -1.200843  
+         
+         [5 rows x 38 columns]
+\end{Verbatim}
+            
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{trainBinaryDf}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}        Unnamed: 0     holiday  workingday        temp       atemp    humidity  \textbackslash{}
+         count  331.000000  331.000000  331.000000  331.000000  331.000000  331.000000   
+         mean   165.000000    0.033233    0.670695   17.018127   19.543807   63.385776   
+         std     95.695698    0.179515    0.470672   11.192515    9.930991   14.334789   
+         min      0.000000    0.000000    0.000000  -11.000000   -6.000000   25.416700   
+         25\%     82.500000    0.000000    0.000000    7.500000   11.000000   52.702900   
+         50\%    165.000000    0.000000    1.000000   18.000000   21.000000   63.291700   
+         75\%    247.500000    0.000000    1.000000   26.000000   27.000000   73.500000   
+         max    330.000000    1.000000    1.000000   38.000000   39.000000   97.250000   
+         
+                 windspeed        count    season\_1    season\_2       {\ldots}        \textbackslash{}
+         count  331.000000   331.000000  331.000000  331.000000       {\ldots}         
+         mean     0.190833  4598.447130    0.217523    0.259819       {\ldots}         
+         std      0.078240  1935.319338    0.413186    0.439199       {\ldots}         
+         min      0.022392   431.000000    0.000000    0.000000       {\ldots}         
+         25\%      0.133083  3370.000000    0.000000    0.000000       {\ldots}         
+         50\%      0.178479  4648.000000    0.000000    0.000000       {\ldots}         
+         75\%      0.235380  5981.000000    0.000000    1.000000       {\ldots}         
+         max      0.421642  8714.000000    1.000000    1.000000       {\ldots}         
+         
+                day\_of\_week\_4  day\_of\_week\_5  day\_of\_week\_6   weather\_1   weather\_2  \textbackslash{}
+         count     331.000000     331.000000     331.000000  331.000000  331.000000   
+         mean        0.123867       0.145015       0.135952    0.640483    0.329305   
+         std         0.329929       0.352649       0.343256    0.480585    0.470672   
+         min         0.000000       0.000000       0.000000    0.000000    0.000000   
+         25\%         0.000000       0.000000       0.000000    0.000000    0.000000   
+         50\%         0.000000       0.000000       0.000000    1.000000    0.000000   
+         75\%         0.000000       0.000000       0.000000    1.000000    1.000000   
+         max         1.000000       1.000000       1.000000    1.000000    1.000000   
+         
+                 weather\_3     temp\_norm    atemp\_norm  humidity\_norm  windspeed\_norm  
+         count  331.000000  3.310000e+02  3.310000e+02   3.310000e+02    3.310000e+02  
+         mean     0.030211 -3.823729e-17 -1.214202e-16  -8.439037e-16    1.549616e-15  
+         std      0.171428  1.001514e+00  1.001514e+00   1.001514e+00    1.001514e+00  
+         min      0.000000 -2.507081e+00 -2.576025e+00  -2.652747e+00   -2.156128e+00  
+         25\%      0.000000 -8.516886e-01 -8.616201e-01  -7.463695e-01   -7.392325e-01  
+         50\%      0.000000  8.785869e-02  1.468532e-01  -6.572679e-03   -1.581428e-01  
+         75\%      0.000000  8.037042e-01  7.519372e-01   7.066402e-01    5.702098e-01  
+         max      1.000000  1.877473e+00  1.962105e+00   2.365957e+00    2.954455e+00  
+         
+         [8 rows x 38 columns]
+\end{Verbatim}
+            
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Drop k\PYZhy{}th dummies}
+         \PY{n}{predictors} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{holiday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{workingday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{atemp\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{humidity\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{windspeed\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{const}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Add a constant term to our predictors}
+         \PY{n}{trainBinaryDf} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{trainBinaryDf}\PY{p}{)}
+         \PY{n}{testBinaryDf} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{testBinaryDf}\PY{p}{)}
+         
+         \PY{n}{trainPredict} \PY{o}{=} \PY{n}{trainBinaryDf}\PY{p}{[}\PY{n}{predictors}\PY{p}{]}
+         \PY{n}{testPredict} \PY{o}{=} \PY{n}{testBinaryDf}\PY{p}{[}\PY{n}{predictors}\PY{p}{]}
+\end{Verbatim}
+
+    \subsection{Part (b): Multiple Linear
+Regression}\label{part-b-multiple-linear-regression}
+
+We are now ready to fit a linear regression model and analyze its
+coefficients and residuals.
+
+\begin{itemize}
+\tightlist
+\item
+  Fit a multiple linear regression model to the training set, and report
+  its \(R^2\) score on the test set.
+\item
+  \emph{Statistical significance}: Using a t-test, find out which of
+  estimated coefficients are statistically significant at a significance
+  level of 5\% (p-value\textless{}0.05). Based on the results of the
+  test, answer the following questions:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Which among the predictors have a positive correlation with the
+    number of bike rentals?
+  \item
+    Does the day of a week have a relationship with bike rentals?
+  \item
+    Does the month influence the bike rentals?
+  \item
+    What effect does a holiday have on bike rentals?
+  \item
+    Is there a difference in the coefficients assigned to \texttt{temp}
+    and \texttt{atemp}? Give an explanation for your observation.
+  \end{itemize}
+\item
+  \emph{Residual plot:} Make a plot of residuals of the fitted model
+  \({e} = y - \hat{y}\) as a function of the predicted value
+  \(\hat{y}\). Note that this is different from the residual plot for
+  simple linear regression. Draw a horizontal line denoting the zero
+  residual value on the Y-axis. Does the plot reveal a non-linear
+  relationship between the predictors and response? What does the plot
+  convey about the variance of the error terms?
+\end{itemize}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Fit OLS multilinear regression on test set}
+         \PY{n}{X} \PY{o}{=} \PY{n}{trainPredict}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{trainDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{allKModel} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{allKModel}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{allKModel}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                     OLS Regression Results                            
+         ==============================================================================
+         Dep. Variable:                  count   R-squared:                       0.576
+         Model:                            OLS   Adj. R-squared:                  0.538
+         Method:                 Least Squares   F-statistic:                     15.25
+         Date:                Wed, 04 Oct 2017   Prob (F-statistic):           6.56e-42
+         Time:                        19:31:50   Log-Likelihood:                -2832.1
+         No. Observations:                 331   AIC:                             5720.
+         Df Residuals:                     303   BIC:                             5827.
+         Df Model:                          27                                         
+         Covariance Type:            nonrobust                                         
+         ==================================================================================
+                              coef    std err          t      P>|t|      [0.025      0.975]
+         ----------------------------------------------------------------------------------
+         holiday         -616.6027    405.068     -1.522      0.129   -1413.706     180.500
+         workingday       -24.0933    174.143     -0.138      0.890    -366.777     318.590
+         temp\_norm        924.3344    473.819      1.951      0.052      -8.058    1856.727
+         atemp\_norm       311.9618    429.337      0.727      0.468    -532.898    1156.822
+         humidity\_norm   -547.6638    113.029     -4.845      0.000    -770.085    -325.243
+         windspeed\_norm  -254.7369     80.644     -3.159      0.002    -413.431     -96.043
+         weather\_1       1581.9783    529.223      2.989      0.003     540.560    2623.396
+         weather\_2       1565.4117    478.500      3.271      0.001     623.807    2507.016
+         day\_of\_week\_0   -465.1450    269.154     -1.728      0.085    -994.794      64.504
+         day\_of\_week\_1   -256.6501    172.675     -1.486      0.138    -596.445      83.145
+         day\_of\_week\_2   -328.1845    204.810     -1.602      0.110    -731.214      74.845
+         day\_of\_week\_3     37.6128    214.916      0.175      0.861    -385.304     460.530
+         day\_of\_week\_4    -71.6425    208.337     -0.344      0.731    -481.612     338.327
+         day\_of\_week\_5    -21.8317    200.742     -0.109      0.913    -416.858     373.194
+         season\_1       -1226.1865    506.763     -2.420      0.016   -2223.407    -228.966
+         season\_2        -327.3575    573.373     -0.571      0.568   -1455.654     800.939
+         season\_3        -193.3050    449.171     -0.430      0.667   -1077.194     690.584
+         month\_1          118.8358    505.353      0.235      0.814    -875.611    1113.282
+         month\_2          207.7759    516.216      0.402      0.688    -808.047    1223.599
+         month\_3          358.0167    511.391      0.700      0.484    -648.310    1364.344
+         month\_4          452.1849    657.792      0.687      0.492    -842.234    1746.604
+         month\_5           53.0233    700.991      0.076      0.940   -1326.403    1432.450
+         month\_6         -673.4271    696.142     -0.967      0.334   -2043.313     696.458
+         month\_7        -1161.1512    701.261     -1.656      0.099   -2541.109     218.806
+         month\_8         -657.6397    684.628     -0.961      0.338   -2004.868     689.588
+         month\_9          523.9804    548.284      0.956      0.340    -554.945    1602.906
+         month\_10         605.0867    439.844      1.376      0.170    -260.449    1470.623
+         month\_11         231.5175    413.966      0.559      0.576    -583.094    1046.129
+         const           3672.2940    664.433      5.527      0.000    2364.807    4979.781
+         ==============================================================================
+         Omnibus:                       28.947   Durbin-Watson:                   1.912
+         Prob(Omnibus):                  0.000   Jarque-Bera (JB):                9.753
+         Skew:                           0.054   Prob(JB):                      0.00762
+         Kurtosis:                       2.166   Cond. No.                     1.05e+16
+         ==============================================================================
+         
+         Warnings:
+         [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+         [2] The smallest eigenvalue is 7.45e-30. This might indicate that there are
+         strong multicollinearity problems or that the design matrix is singular.
+         """
+\end{Verbatim}
+            
+    \subsubsection{Assesment of The Regression Model
+Above}\label{assesment-of-the-regression-model-above}
+
+\begin{itemize}
+\tightlist
+\item
+  The following predictors have a statistically significant correlation
+  with the number of bike rentals:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{weather\_1}, \emph{weather\_2}, \emph{humidity\_norm},
+    \emph{windspeed\_norm}
+  \item
+    \emph{month\_4} April, \emph{month\_9} September, \emph{month\_10}
+    October, \emph{month\_11} November, \emph{season\_1} Spring
+  \item
+    \emph{const}
+  \end{itemize}
+\item
+  We determined these statistically significant predictors by looking at
+  the P\textgreater{}\textbar{}t\textbar{} values above. If the value is
+  less than .05, then that predictor's coefficient is significant.\\
+\item
+  The day of a week does not have a statistically significant
+  relationship with bike rentals.
+\item
+  The month certainly influences the number of bike rentals (as
+  evidenced by the significant predictors above)
+\item
+  Ceteris paribus, a holiday does not have a significant relationship
+  with bike rentals.
+\item
+  There is no statistical significant difference in the coefficients
+  assigned to \emph{temp} and \emph{atemp}, as both 95\%-CIs have
+  similar bounds, including 0. However, \emph{temp} is almost
+  significant, while \emph{atemp} is nowhere close to being significant.
+  This difference is surprising, but might be explained by the fact that
+  apparent temperatures can vary significantly depending on other
+  weather factors, while temperature is a baseline measure.
+\end{itemize}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{testY} \PY{o}{=} \PY{n}{testDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{testYHat} \PY{o}{=} \PY{n}{allKModel}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testPredict}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test R\PYZhy{}Squared: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testY}\PY{p}{,} \PY{n}{testYHat}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+Test R-Squared: 0.24934211146527574
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{Low \(R^2\) Value
+Interpretation}{Low R\^{}2 Value Interpretation}}\label{low-r2-value-interpretation}
+
+The comparatively low \(R^2\) value indicates that our model is
+overfitting the training data, especially given the larger \(R^2\) value
+for the training data.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{residuals} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{yhat}\PY{p}{,} \PY{n}{y}\PY{p}{:} \PY{n}{yhat} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{,} \PY{n}{predictions}\PY{p}{,} \PY{n}{Y}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}YNorm instead of Y}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{residuals}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Residual Plot from Multilinear Regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} ax.set\PYZus{}xlabel(\PYZdq{}Normalized True Count\PYZdq{}) True?}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <matplotlib.text.Text at 0x1229aa160>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Residuals analysis}\label{residuals-analysis}
+
+The plot reveals a non-linear relationship between the predictors and
+response, since the error terms are not evenly distributed around the
+mean, and their variance depends on y, decreasing as y grows. This
+violates our regression assumption of normal, homoskedastic noise.
+
+    \subsection{Part (c): Checking
+Collinearity}\label{part-c-checking-collinearity}
+
+Does the data suffer from multi-collinearity? To answer this question,
+let us first analyze the correlation matrix for the data. Compute the
+(Pearson product-moment) correlation matrix for the predictor variables
+in the training set, and visualize the matrix using a heatmap. For
+categorical attributes, you should use each binary predictor resulting
+from one-hot encoding to compute their correlations. Are there
+predictors that fall into natural groups based on the correlation
+values?
+
+\emph{Hint:} You may use the \texttt{np.corrcoef} function to compute
+the correlation matrix for a data set (do not forget to transpose the
+data matrix). You may use \texttt{plt.pcolor} function to visualize the
+correlation matrix.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{dpal} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{choose\PYZus{}colorbrewer\PYZus{}palette}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{diverging}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}cmap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{pcolor}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{ix}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{columns} \PY{o}{!=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{const}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{dpal}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Matrix}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{predictors}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+/Applications/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:1:
+DeprecationWarning:
+.ix is deprecated. Please use
+.loc for label based indexing or
+.iloc for positional indexing
+
+See the documentation here:
+http://pandas.pydata.org/pandas-docs/stable/indexing.html\#deprecate\_ix
+  """Entry point for launching an IPython kernel.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} ([<matplotlib.axis.YTick at 0x122ce8b38>,
+           <matplotlib.axis.YTick at 0x122cd4eb8>,
+           <matplotlib.axis.YTick at 0x122df7e48>,
+           <matplotlib.axis.YTick at 0x122de99e8>,
+           <matplotlib.axis.YTick at 0x122dd9c88>,
+           <matplotlib.axis.YTick at 0x122dc5cc0>,
+           <matplotlib.axis.YTick at 0x122dc08d0>,
+           <matplotlib.axis.YTick at 0x122dadcc0>,
+           <matplotlib.axis.YTick at 0x122cefbe0>,
+           <matplotlib.axis.YTick at 0x122e03550>,
+           <matplotlib.axis.YTick at 0x122e18240>,
+           <matplotlib.axis.YTick at 0x122e18cc0>,
+           <matplotlib.axis.YTick at 0x122e1e780>,
+           <matplotlib.axis.YTick at 0x122e27240>,
+           <matplotlib.axis.YTick at 0x122e27cc0>,
+           <matplotlib.axis.YTick at 0x122e2d780>,
+           <matplotlib.axis.YTick at 0x122e33240>,
+           <matplotlib.axis.YTick at 0x122e33cc0>,
+           <matplotlib.axis.YTick at 0x122e38780>,
+           <matplotlib.axis.YTick at 0x122e3f240>,
+           <matplotlib.axis.YTick at 0x122e3fcc0>,
+           <matplotlib.axis.YTick at 0x122e45780>,
+           <matplotlib.axis.YTick at 0x122e4c240>,
+           <matplotlib.axis.YTick at 0x122e4ccc0>,
+           <matplotlib.axis.YTick at 0x122e51780>,
+           <matplotlib.axis.YTick at 0x122e56240>,
+           <matplotlib.axis.YTick at 0x122e56cc0>,
+           <matplotlib.axis.YTick at 0x122e5f780>],
+          <a list of 28 Text yticklabel objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cs109a_hw3_files/cs109a_hw3_52_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We observe the following relationships: * \emph{temp\_norm} and
+\emph{atemp\_norm} are unsurprisingly very much positively correlated. *
+\emph{weather\_1} and \emph{weather\_2} are negatively correlated, which
+makes sense since they derive from categorical data. * We can see
+"boxes" for \emph{day\_of\_week\_j} and \emph{month\_k} which is
+intuitive. * \emph{temp\_norm} and \emph{atemp\_norm} are correlated
+with the months. * Naturally, the seasons are correlated with the
+months.
+
+Note that we excluded the constant term from our correlation matrix, as
+the variance of a constant is 0, so calculating the correlation of a
+variable with a constant would yield an undefined value.
+
+    \subsection{Part (d): Subset Selection}\label{part-d-subset-selection}
+
+Apply either one of the following subset selection methods discussed in
+class to choose a minimal subset of predictors that are related to the
+response variable: - Step-wise forward selection - Step-wise backward
+selection
+
+We require you to implement both these methods \emph{from scratch}. You
+may use the Bayesian Information Criterion (BIC) to choose the subset
+size in each method. Do these methods eliminate one or more of the
+redundant predictors (if any) identified in Part (c)? In each case, fit
+linear regression models using the identified subset of predictors to
+the training set. How do the test \(R^2\) scores for the fitted models
+compare with the model fitted in Part (b) using all predictors?
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Implement step\PYZhy{}wise forward selection}
+         
+         \PY{c+c1}{\PYZsh{} The set of predictors}
+         \PY{n}{predictors} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{const}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{holiday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{workingday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{atemp\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{humidity\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{windspeed\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         
+         \PY{n}{forwardPredictors} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{forwardModels} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{predictors}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{betterModel}\PY{p}{,} \PY{n}{betterPredictor}\PY{p}{,} \PY{n}{betterBIC} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{k+kc}{None}\PY{p}{,} \PY{n}{sys}\PY{o}{.}\PY{n}{maxsize}
+         
+             \PY{k}{for} \PY{n}{addedPredictor} \PY{o+ow}{in} \PY{n}{predictors}\PY{p}{:}
+                 \PY{n}{X} \PY{o}{=} \PY{n}{trainBinaryDf}\PY{p}{[}\PY{n}{forwardPredictors} \PY{o}{+} \PY{p}{[}\PY{n}{addedPredictor}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{newModel} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{n}{bestBIC} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{p}{[}\PY{n}{model}\PY{o}{.}\PY{n}{bic} \PY{k}{for} \PY{n}{model} \PY{o+ow}{in} \PY{n}{forwardModels}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{betterBIC}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{newModel}\PY{o}{.}\PY{n}{bic} \PY{o}{\PYZlt{}} \PY{n}{bestBIC}\PY{p}{:}
+                     \PY{n}{betterModel} \PY{o}{=} \PY{n}{newModel}
+                     \PY{n}{betterPredictor} \PY{o}{=} \PY{n}{addedPredictor}
+                     \PY{n}{betterBIC} \PY{o}{=} \PY{n}{newModel}\PY{o}{.}\PY{n}{bic}
+         
+             \PY{k}{if} \PY{n}{betterModel}\PY{p}{:}
+                 \PY{n}{forwardModels}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{betterModel}\PY{p}{)}
+                 \PY{n}{forwardPredictors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{betterPredictor}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{break}
+         
+         \PY{n}{forwardBICs} \PY{o}{=} \PY{p}{[}\PY{n}{model}\PY{o}{.}\PY{n}{bic} \PY{k}{for} \PY{n}{model} \PY{o+ow}{in} \PY{n}{forwardModels}\PY{p}{]}
+         \PY{n}{forwardRSquareds} \PY{o}{=} \PY{p}{[}\PY{n}{model}\PY{o}{.}\PY{n}{rsquared} \PY{k}{for} \PY{n}{model} \PY{o+ow}{in} \PY{n}{forwardModels}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predictors: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{forwardPredictors}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rsquareds: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{forwardRSquareds}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BICs: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{forwardBICs}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+Predictors: ['const', 'atemp\_norm', 'humidity\_norm', 'season\_1', 'month\_9',
+'month\_10', 'windspeed\_norm', 'month\_7']
+Rsquareds: [0.0, 0.36094811139379512, 0.41237745384733182, 0.46809945208979198,
+0.48910179719539404, 0.5104124449264057, 0.5237587713442825, 0.53432886723575779]
+BICs: [5954.1722009863015, 5811.7625734619323, 5789.7935136501037, 5762.6186708109581,
+5755.0860658498423, 5746.7852518967693, 5743.438926291893, 5741.8118001623388]
+
+    \end{Verbatim}
+
+    \subsection{Results}\label{results}
+
+The step-wise forward regression yields a 6-parameter model.
+\emph{temp\_norm} and some \emph{season}/\emph{month} redundancies (by
+collinearity) have been resolved. We correctly see that the BIC of each
+iteration of this algorithm decreases, signifying an improvement overall
+in our model. Further, our \(R^2\) values increase to just below the
+original model with all predictors. This is encouraging, since our new
+model is significantly smaller but about as powerful as the first model.
+
+    \subsection{Testing}\label{testing}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{testY} \PY{o}{=} \PY{n}{testDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{testPredict} \PY{o}{=} \PY{n}{testBinaryDf}\PY{p}{[}\PY{n}{forwardPredictors}\PY{p}{]}
+         \PY{n}{testYHat} \PY{o}{=} \PY{n}{forwardModels}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testPredict}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test R\PYZhy{}Squared: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testY}\PY{p}{,} \PY{n}{testYHat}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+Test R-Squared: 0.23390728606336764
+
+    \end{Verbatim}
+
+    Testing the resulting model on the test dataset yields a slightly lower
+\(R^2\) value than the one in Part (b).
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Implement step\PYZhy{}wise backward selection}
+         
+         \PY{c+c1}{\PYZsh{} The set of predictors}
+         \PY{n}{predictors} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{const}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{holiday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{workingday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temp\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{atemp\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{humidity\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{windspeed\PYZus{}norm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weather\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{day\PYZus{}of\PYZus{}week\PYZus{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{season\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                           \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         
+         
+         \PY{n}{backwardPredictors} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{predictors}\PY{p}{)}
+         \PY{n}{backwardModels} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{predictors}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{betterModel}\PY{p}{,} \PY{n}{betterPredictor}\PY{p}{,} \PY{n}{betterBIC} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{k+kc}{None}\PY{p}{,} \PY{n}{sys}\PY{o}{.}\PY{n}{maxsize}
+         
+             \PY{k}{for} \PY{n}{removedPredictor} \PY{o+ow}{in} \PY{n}{backwardPredictors}\PY{p}{:}
+                 \PY{n}{X} \PY{o}{=} \PY{n}{trainBinaryDf}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{backwardPredictors} \PY{o}{\PYZhy{}} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{n}{removedPredictor}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+                 \PY{n}{newModel} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{n}{bestBIC} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{p}{[}\PY{n}{model}\PY{o}{.}\PY{n}{bic} \PY{k}{for} \PY{n}{model} \PY{o+ow}{in} \PY{n}{backwardModels}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{betterBIC}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{newModel}\PY{o}{.}\PY{n}{bic} \PY{o}{\PYZlt{}} \PY{n}{bestBIC}\PY{p}{:}
+                     \PY{n}{betterModel} \PY{o}{=} \PY{n}{newModel}
+                     \PY{n}{betterPredictor} \PY{o}{=} \PY{n}{removedPredictor}
+                     \PY{n}{betterBIC} \PY{o}{=} \PY{n}{newModel}\PY{o}{.}\PY{n}{bic}
+         
+             \PY{k}{if} \PY{n}{betterModel}\PY{p}{:}
+                 \PY{n}{backwardModels}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{betterModel}\PY{p}{)}
+                 \PY{n}{backwardPredictors}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{betterPredictor}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{break}
+         
+         \PY{n}{backwardBICs} \PY{o}{=} \PY{p}{[}\PY{n}{model}\PY{o}{.}\PY{n}{bic} \PY{k}{for} \PY{n}{model} \PY{o+ow}{in} \PY{n}{backwardModels}\PY{p}{]}
+         \PY{n}{backwardRSquareds} \PY{o}{=} \PY{p}{[}\PY{n}{model}\PY{o}{.}\PY{n}{rsquared} \PY{k}{for} \PY{n}{model} \PY{o+ow}{in} \PY{n}{backwardModels}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predictors: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{backwardPredictors}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rsquareds: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{backwardRSquareds}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BICs: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{backwardBICs}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+Predictors: \{'weather\_2', 'day\_of\_week\_5', 'month\_8', 'humidity\_norm', 'month\_7',
+'const', 'windspeed\_norm', 'weather\_1', 'workingday', 'month\_6', 'day\_of\_week\_2',
+'season\_1', 'day\_of\_week\_3', 'day\_of\_week\_4', 'holiday', 'temp\_norm', 'day\_of\_week\_1'\}
+Rsquareds: [0.57612017442132424, 0.57605080910137485, 0.57588543174157469,
+0.5756513106142167, 0.57513980584466751, 0.57432856240861385, 0.57347456671855168,
+0.57236259109017618, 0.57102272820283972, 0.56788327070409084, 0.56358808011277584,
+0.5584752558959003]
+BICs: [5820.9282263781215, 5815.1802696804134, 5809.507245152513, 5803.8877960781911,
+5798.484420821208, 5793.3137231919627, 5788.175002389833, 5783.2346965933684,
+5778.4680378881812, 5775.0795120710272, 5772.5512515638839, 5770.6044544609886]
+
+    \end{Verbatim}
+
+    \subsubsection{Results of Backwards
+Selection}\label{results-of-backwards-selection}
+
+Here, we recognize several problems with the result of this backwards
+selection. First, the number of predictors in this model is still very
+large, and there are still many predictors that are colinear with one
+another. Secondly, the \(R^2\) values are decreasing, as well as our BIC
+values, which means that while our scoring metric (BIC) improves, we
+lose explanatory power of the data as well.
+
+    \subsubsection{Testing}\label{testing}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{testY} \PY{o}{=} \PY{n}{testDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{testPredict} \PY{o}{=} \PY{n}{testBinaryDf}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{backwardPredictors}\PY{p}{)}\PY{p}{]}
+         \PY{n}{testYHat} \PY{o}{=} \PY{n}{backwardModels}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testPredict}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test R\PYZhy{}Squared: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testY}\PY{p}{,} \PY{n}{testYHat}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+Test R-Squared: 0.25606288780692477
+
+    \end{Verbatim}
+
+    Testing the resulting model on the test dataset yields a marginally
+higher \(R^2\) value than the one in Part (b).
+
+    \subsection{Part (e): Cross Validation}\label{part-e-cross-validation}
+
+\begin{itemize}
+\tightlist
+\item
+  Perform a 10-fold cross-validation procedure to select between the 3
+  competing models you have so far: the model with the best BIC from
+  Step-wise forward selection, the model with the best BIC from
+  Step-wise backward selection (if it is different), and the model with
+  all possible predictors. Report the average \(R^2\) across all 10
+  validation sets for each model and compare the results. Why do you
+  think this is the case?
+\item
+  Evaluate each of the 3 models on the provided left out test set by
+  calculating \(R^2\). Do the results agree with the cross-validation?
+  Why or why not?
+\end{itemize}
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{forwardModel} \PY{o}{=} \PY{n}{forwardModels}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{backwardModel} \PY{o}{=} \PY{n}{backwardModels}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{n}{kf} \PY{o}{=} \PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{trainPredict}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{trainDf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{allKRSquares} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{forwardRSquares} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{backwardRSquares} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{trainIndices}\PY{p}{,} \PY{n}{validationIndices} \PY{o+ow}{in} \PY{n}{kf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+             \PY{n}{trainX} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{trainIndices}\PY{p}{]}
+             \PY{n}{trainY} \PY{o}{=} \PY{n}{Y}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{trainIndices}\PY{p}{]}
+         
+             \PY{n}{validationX} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{validationIndices}\PY{p}{]}
+             \PY{n}{validationY} \PY{o}{=} \PY{n}{Y}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{validationIndices}\PY{p}{]}
+         
+             \PY{n}{allKX} \PY{o}{=} \PY{n}{trainX}
+             \PY{n}{allK} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{trainY}\PY{p}{,} \PY{n}{allKX}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{forwardX} \PY{o}{=} \PY{n}{trainX}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{forwardPredictors}\PY{p}{)}\PY{p}{]}
+             \PY{n}{forward} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{trainY}\PY{p}{,} \PY{n}{forwardX}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{backwardX} \PY{o}{=} \PY{n}{trainX}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{backwardPredictors}\PY{p}{)}\PY{p}{]}
+             \PY{n}{backward} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{trainY}\PY{p}{,} \PY{n}{backwardX}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{allKYHat} \PY{o}{=} \PY{n}{allK}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{validationX}\PY{p}{)}
+             \PY{n}{forwardYHat} \PY{o}{=} \PY{n}{forward}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{validationX}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{forwardPredictors}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{backwardYHat} \PY{o}{=} \PY{n}{backward}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{validationX}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{backwardPredictors}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{allKRSquares}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{validationY}\PY{p}{,} \PY{n}{allKYHat}\PY{p}{)}\PY{p}{)}
+             \PY{n}{forwardRSquares}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{validationY}\PY{p}{,} \PY{n}{forwardYHat}\PY{p}{)}\PY{p}{)}
+             \PY{n}{backwardRSquares}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{validationY}\PY{p}{,} \PY{n}{backwardYHat}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Original model mean: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Forward model mean: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Backwards model mean:}
+         \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{o}{.}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.format(np.mean(allKRSquares), np.mean(forwardRSquares), np.mean(backwardRSquares)))}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+Original model mean: 0.34257855093958417, Forward model mean: 0.44036505151424993,
+Backwards model mean: 0.4499215974237565.
+
+    \end{Verbatim}
+
+    \subsubsection{Summary of 10-fold
+cross-validation}\label{summary-of-10-fold-cross-validation}
+
+We see that our average \(R^2\) score for 10-fold cross-validation from
+our original model was just .34, which is significantly smaller than
+both the forward and backwards models. This is likely due to the
+overfitting of our original model with the training dataset that it is
+given for each data split. As we have seen earlier, our step-wise
+backward model actually scored the best on our test data our of any
+other model. This is surprising for numerous reasons, but mostly because
+there still are a large amount of parameters in that model that might
+indicate overfitting.
+
+   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
